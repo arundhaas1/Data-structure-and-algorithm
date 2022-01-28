@@ -1,0 +1,151 @@
+package com.dhas;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String args[]) {
+
+        boolean flag=true;
+        int value,position;
+        Scanner input=new Scanner(System.in);
+        while(flag){
+            System.out.println("\n"+"----------------------------------------");
+            System.out.println("Enter 1 for insert at end");
+            System.out.println("Enter 2 for display");
+            System.out.println("Enter 3 for insert at specific position");
+            System.out.println("Enter 4 for delete at specific position");
+            System.out.println("Enter 5 to delete at end");
+            System.out.println("Enter 6 to delete at begining");
+            System.out.println("Enter 7 to get index");
+            System.out.println("Enter 8 for clear");
+            System.out.println("Enter 9 for update at certain position");
+            System.out.println("Enter other for exit");
+            System.out.println("\n"+"----------------------------------------");
+            int code=input.nextInt();
+            
+            List list=new List();      
+
+            switch (code){
+                case 1:
+                    System.out.println("Enter the number to be added at end");
+                    value=input.nextInt();
+                    list.addAtEnd(value);
+                    break;
+                case 2:
+                    list.display();
+                    break;
+                case 3:
+                    System.out.println("Enter the position");
+                    position=input.nextInt();
+                    System.out.println("Enter the number to be added");
+                    value=input.nextInt();
+                  list.addAtPosition(value,position);
+                    break;
+                case 4:
+                    System.out.println("Enter the position");
+                    position=input.nextInt();
+                  list.deleteAtPosition(position);
+                    break;
+                case 5:
+                    list.deleteAtLast();
+                    break;
+                case 6:
+                    list.deleteAtBegining();
+                    break;
+                case 7:
+                    System.out.println("Enter the number to get index of its first presence");
+                    int number=input.nextInt();
+                    list.getIndex(number);
+                    break;
+                case 8:
+                    list.clear();
+                    break;
+                case 9:
+                    System.out.println("enter the position");
+                    position=input.nextInt();
+                    System.out.println("enter the number to be replaced");
+                    value=input.nextInt();
+                    list.update(value,position);
+                    break;
+                default:
+                    System.exit(0);
+
+            }
+        }
+    }
+}
+
+class List<Generic>{
+    static int size=0;
+    static int intialCapacity=16;
+    static int array[]=new int[intialCapacity];
+    int capacity=intialCapacity;
+
+    public List() {
+        this.size = size;
+        this.array = array;
+    }
+
+    public void addAtEnd(int number){
+        if(size==capacity)
+            increaseCapacity();
+        array[size]=number;
+        size++;
+    }
+
+    private void increaseCapacity(){
+        capacity*=capacity;
+        array=java.util.Arrays.copyOf(array,capacity);
+    }
+
+    public void display(){
+        System.out.println(size);
+        for (int i=0;i<size;i++){
+            System.out.print(array[i]+" ");
+        }
+    }
+
+    public void addAtPosition(int value,int position){
+        if(size==capacity)
+            increaseCapacity();
+        for (int i=size-1;i>=0;i--){
+            array[i+1]=array[i];
+        }
+        array[position]=value;
+        size++;
+
+    }
+
+    public void deleteAtPosition(int poition){
+        for (int i=poition;i<size;i++){
+            array[i]=array[i+1];
+        }
+        size--;
+    }
+
+    public void deleteAtLast(){
+        deleteAtPosition(size);
+    }
+
+    public void deleteAtBegining(){
+        deleteAtPosition(0);
+    }
+
+    public void getIndex(int number){
+        for (int i=0;i<size;i++){
+            if(array[i]==number){
+                System.out.println("index of "+number+" is "+i);
+                break;
+            }
+        }
+    }
+
+    public void clear(){
+        size=0;
+    }
+
+    public void update(int value,int position){
+        array[position]=value;
+    }
+
+
+}
