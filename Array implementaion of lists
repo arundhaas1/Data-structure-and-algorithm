@@ -74,7 +74,7 @@ public class Main {
     }
 }
 
-class List<Generic>{
+class List{
     static int size=0;
     static int intialCapacity=16;
     static int array[]=new int[intialCapacity];
