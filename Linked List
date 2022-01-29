@@ -1,0 +1,154 @@
+package com.dhas;
+
+public class LinkedList<T> {
+    Node head;
+    class Node{
+            T data;
+            Node next;
+
+        public Node(T value) {
+            data=value;
+            next=null;
+        }
+    }
+
+     LinkedList() {
+        head=null;
+    }
+
+    public void insertAtBegining(T value){
+        Node newNode=new Node(value);
+        if(head==null){
+            head=newNode;
+        }else{
+            newNode.next=head;     //newNode is the refernce value of that node stored in before node.
+            head=newNode;          //newNode.next is the refernce stored in newly created node.
+        }
+
+    }
+
+    public void display(){
+        Node temp=head;
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+    }
+
+    public void insertAtPosition(T value,int position){
+
+        if(position==0){
+            insertAtBegining(value);  //if position is zero
+            return;
+        }
+
+        Node newNode=new Node(value);
+        Node temp=head;
+        for(int i=0;i<position-1;i++){      //to stop in before the position node
+            temp=temp.next;
+            if(temp==null){                  //if it reaches the last node
+                throw new IndexOutOfBoundsException("List is empty");
+            }
+        }
+        newNode.next=temp.next;
+        temp.next=newNode;
+    }
+    
+    void deleteAtPosition(int position){
+        if(head==null){
+            throw new IndexOutOfBoundsException("List is empty");
+        }
+        if(position==0){
+            deteteAtBegining();
+        }
+        Node temp=head;
+        Node prev = null;
+        for (int i=0;i<position;i++){   //get that position
+            prev=temp;
+            temp=temp.next;
+        }
+        prev.next=temp.next;
+    }
+
+    public void deteteAtBegining(){
+        head=head.next;
+    }
+
+    public void get(int position){
+        Node temp=head;
+        for (int i=0;i<position;i++){
+            temp=temp.next;
+            if(temp==null){
+                throw new IndexOutOfBoundsException();
+            }
+        }
+        System.out.println("the value at "+position+" is "+temp.data);
+    }
+
+    public void update(T value,int position){
+        Node temp=head;
+        for (int i=0;i<position;i++){
+            temp=temp.next;
+        }
+        temp.data=value;
+    }
+
+    public void deleteAtEnd(){
+        Node temp=head;
+        Node prev=null;
+        while (temp.next!=null){
+            prev=temp;
+            temp=temp.next;
+        }
+        prev.next=null;
+    }
+
+    public void search(T value){
+        Node temp=head;
+        int count=0;
+        while (temp.data!=value){
+            temp=temp.next;
+            count++;
+        }
+        System.out.println("Index of "+value+" is "+count);
+    }
+
+    public void inserAtEnd(T value){
+        Node newNode=new Node(value);
+        Node temp=head;
+        while (temp.next!=null){
+            temp=temp.next;
+        }
+
+        temp.next=newNode;
+        newNode.next=null;
+    }
+
+}
+
+
+    //MAIN CLASS
+    
+    package com.dhas;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String args[]) {
+        LinkedList<Integer> linkedList=new LinkedList<Integer>();
+
+        linkedList.insertAtBegining(1);
+        linkedList.insertAtBegining(20);
+        linkedList.insertAtBegining(330);
+
+        linkedList.display();
+        System.out.println();
+
+        linkedList.deleteAtEnd();
+        linkedList.display();
+        linkedList.search(20);
+
+        linkedList.inserAtEnd(321);
+        linkedList.display();
+    }
+}
+
