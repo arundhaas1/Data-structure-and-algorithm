@@ -1,0 +1,188 @@
+package com.dhas;
+
+public class DoublyLinked<T> {
+    Node head;
+    Node tail;
+    class Node{
+            T data;
+            Node prev;
+            Node next;
+
+        public Node(T value) {
+            data=value;
+            prev=null;
+            next=null;
+        }
+    }
+
+     DoublyLinked() {
+        head=null;
+    }
+
+    public void insertAtBegining(T value){
+        Node newNode=new Node(value);
+        if(head==null){
+            head=newNode;
+            tail=newNode;
+        }else{
+            head.prev=newNode;
+            newNode.next=head;     //newNode is the refernce value of that node stored in before node.
+            head=newNode;          //newNode.next is the refernce stored in newly created node.
+        }
+
+    }
+
+    public void display(){
+        Node temp=head;
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+    }
+
+    public void displayREv(){
+        Node temp=tail;
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.prev;
+        }
+    }
+
+    public void insertAtPosition(T value,int position){
+
+        if(position==0){
+            insertAtBegining(value);  //if position is zero
+            return;
+        }
+
+        Node newNode=new Node(value);
+        Node temp=head;
+        for(int i=0;i<position-1;i++){      //to stop in before the position node
+            temp=temp.next;
+            if(temp==null){                  //if it reaches the last node
+                throw new IndexOutOfBoundsException("List is empty");
+            }
+        }
+
+        newNode.prev=temp;
+        newNode.next=temp.next;
+
+        temp.next=newNode;
+        temp.next.prev=newNode;
+
+    }
+    
+    void deleteAtPosition(int position){
+        if(head==null){
+            throw new IndexOutOfBoundsException("List is empty");
+        }
+        if(position==0){
+            deteteAtBegining();
+            return;
+        }
+        Node temp=head;
+        Node prev = null;
+        for (int i=0;i<position;i++){   //get that position
+            prev=temp;
+            temp=temp.next;
+        }
+        prev.next=temp.next;
+        temp.next=prev;
+    }
+
+    public void deteteAtBegining(){
+        head.next.prev=null;
+        head=head.next;
+    }
+
+    public void get(int position){
+        Node temp=head;
+        for (int i=0;i<position;i++){
+            temp=temp.next;
+            if(temp==null){
+                throw new IndexOutOfBoundsException();
+            }
+        }
+        System.out.println("the value at "+position+" is "+temp.data);
+    }
+
+    public void update(T value,int position){
+        Node temp=head;
+        for (int i=0;i<position;i++){
+            temp=temp.next;
+        }
+        temp.data=value;
+    }
+
+    public void deleteAtEnd(){
+        Node temp=head;
+        Node prev=null;
+        while (temp.next!=null){
+            prev=temp;
+            temp=temp.next;
+        }
+        prev.next=null;
+    }
+
+    public void inserAtEnd(T value){
+        Node newNode=new Node(value);
+        Node temp=head;
+        while (temp.next!=null){
+            temp=temp.next;
+        }
+
+        newNode.next=null;
+        newNode.prev=temp;
+        temp.next=newNode;
+    }
+
+
+}
+
+      //MAIN METHOD
+
+package com.dhas;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String args[]) {
+        DoublyLinked<Integer> doublyLinked=new DoublyLinked<Integer>();
+
+        doublyLinked.insertAtBegining(1);
+        doublyLinked.insertAtBegining(20);
+        doublyLinked.insertAtBegining(330);
+
+        doublyLinked.display();
+        System.out.println();
+
+        doublyLinked.displayREv();
+        System.out.println();
+
+        doublyLinked.insertAtPosition(44,0);
+        doublyLinked.display();
+
+        System.out.println();
+
+        doublyLinked.deleteAtPosition(0);
+        doublyLinked.display();
+
+        System.out.println();
+
+        doublyLinked.get(1);
+
+        doublyLinked.update(88,2);
+        doublyLinked.display();
+
+        System.out.println();
+
+        doublyLinked.deleteAtEnd();
+        doublyLinked.display();
+
+        System.out.println();
+
+        doublyLinked.inserAtEnd(22);
+        doublyLinked.display();
+
+    }
+}
+
