@@ -1,0 +1,107 @@
+package com.dhas;
+
+class CircularLinked<T> {
+    Node last;
+    class Node{
+        T data;
+        Node next;
+
+         Node(T value){
+            data=value;
+            next=null;
+        }
+    }
+    void circularLinked(){
+        last=null;
+    }
+
+    public void insertAtBegining(T value){
+        Node newNode=new Node(value);
+        if(last==null){
+            newNode.next=newNode;
+            last=newNode;
+        }else{
+            newNode.next=last.next;
+            last.next=newNode;
+        }
+    }
+
+    public void display(){
+        Node temp=last.next;
+        do{
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }while (temp!=last.next);
+    }
+
+    public void deleteAtBegining(){
+        if(last==null){
+            throw new IndexOutOfBoundsException();
+        }else if(last.next==last){
+            last=null;
+        }else{
+            last.next=last.next.next;
+        }
+    }
+
+    public void deleteAtEnd(){
+        Node temp=last;
+        while (temp.next!=last){
+            temp=temp.next;
+        }
+        temp.next=last.next;
+        last=temp;
+    }
+
+    public void deleteByValue(int value){
+        Node temp=last;
+        Node prev=null;
+
+        while(temp.next!=last){
+            prev=temp;
+            temp=temp.next;
+            if(temp.data.equals(value)){
+                prev.next=temp.next;
+            }
+        }
+
+
+    }
+
+}
+
+      //MAIN METHOD
+      
+package com.dhas;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String args[]) {
+        CircularLinked<Integer> circularLinked=new CircularLinked<Integer>();
+
+        circularLinked.insertAtBegining(1);
+        circularLinked.insertAtBegining(20);
+        circularLinked.insertAtBegining(330);
+        circularLinked.insertAtBegining(13);
+        circularLinked.insertAtBegining(24);
+
+
+        circularLinked.display();
+        System.out.println();
+
+        circularLinked.deleteAtBegining();
+        circularLinked.display();
+        System.out.println();
+
+        circularLinked.deleteAtEnd();
+        circularLinked.display();
+        System.out.println();
+
+        circularLinked.deleteByValue(330);
+        circularLinked.display();
+
+
+
+    }
+}
+
