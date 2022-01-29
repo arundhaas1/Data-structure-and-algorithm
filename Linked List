@@ -123,6 +123,20 @@ public class LinkedList<T> {
         temp.next=newNode;
         newNode.next=null;
     }
+    
+        public void reverse(){
+        Node prev=null;
+        Node current=head;
+        Node next=head.next;
+        while (current!=null){
+            next=current.next;  //these two for change node values
+            current.next=prev;
+
+            prev=current;   //this two for jumping
+            current=next;
+        }
+        head=prev;
+    }
 
 }
 
@@ -148,6 +162,11 @@ public class Main {
         linkedList.search(20);
 
         linkedList.inserAtEnd(321);
+        linkedList.display();
+        
+        System.out.println();
+        
+        linkedList.reverse();
         linkedList.display();
     }
 }
