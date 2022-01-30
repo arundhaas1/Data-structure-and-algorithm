@@ -1,0 +1,45 @@
+package com.dhas;
+
+ class LinkedQueue {
+  Node head;
+     class Node{
+      int data;
+      Node next;
+
+      Node(int x){
+       data=x;
+       next=null;
+      }
+     }
+
+     LinkedQueue(){
+      head=null;
+     }
+
+     public void enQueue(int value){
+      Node newNode=new Node(value);
+       if(head==null){
+         head=newNode;
+       }else {
+        newNode.next=head;
+         head=newNode;
+       }
+     }
+
+     public void display(){
+      Node temp=head;
+      while (temp!=null){
+       System.out.print(temp.data+" ");
+       temp=temp.next;
+      }
+  }
+
+  public void deQueue(){
+      if(head==null){
+       throw new IndexOutOfBoundsException();
+      }else {
+       System.out.println(head.data+" ");
+       head=head.next;
+      }
+  }
+}
