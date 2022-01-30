@@ -1,3 +1,5 @@
+        //Single Diamensonal
+
 package com.dhas;
 
 public class Main {
@@ -14,3 +16,31 @@ public class Main {
         }
     }
 }
+
+        //two diamensonal
+        
+package com.dhas;
+
+public class Main {
+    public static void main(String args[]) {
+       int[][] arr={{1,2,3},
+                   {2,2,3},
+                   {3,4,5}};
+       find(arr,4);
+    }
+    public static void find(int[][] arr,int target){
+        int row=arr.length;
+        int column=arr[0].length;
+        for (int i=0;i<row;i++){
+            for (int j=0;j<column;j++){
+                if(arr[i][j]==target){
+                    System.out.println("row--> "+i);
+                    System.out.println("column--> "+j );
+                    return;
+                }
+            }
+        }
+        System.out.println("target not found");
+    }
+}
+
