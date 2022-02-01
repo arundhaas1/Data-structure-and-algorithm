@@ -1,0 +1,52 @@
+package com.dhas;
+import java.util.Arrays;
+
+class Main {
+
+    public static void main(String args[]) {
+        int[] arr={12,2,34,77,12,02};
+
+        System.out.println("The unsorted array is:");
+        System.out.println(Arrays.toString(arr));
+
+        mergesort(arr);
+
+        System.out.println("The sorted array is:");
+        System.out.println(Arrays.toString(arr));
+    }
+
+    static int[] mergesort(int[] arr) {
+        if (arr.length < 2)
+            return arr;
+        int mid = arr.length / 2;
+        int[] left=mergesort(Arrays.copyOfRange(arr,0,mid));
+        int[] right=mergesort(Arrays.copyOfRange(arr,mid,arr.length));
+        merge(arr, left, right);
+        return arr;
+    }
+
+    public static void merge(int arr[], int left[], int right[]) {
+
+        int i = 0, j = 0, k = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) {
+                arr[k] = left[i];
+                i++;
+            } else {
+                arr[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < left.length) {
+            arr[k] = left[i];
+            i++;
+            k++;
+        }
+        while (j < right.length) {
+            arr[k] = right[j];
+            j++;
+            k++;
+        }
+    }
+}
