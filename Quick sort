@@ -43,3 +43,51 @@ class Main {
         arr[y] = temp;
     }
 }
+
+
+
+
+____________________OPTION 2___________________
+
+class Main {
+    public static void main(String[] args) {
+        // System.out.println(Arrays.toString());
+         System.out.println(Arrays.toString(quickSortAlgor(new int[]{99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0})));
+
+    }
+    
+    public static int[] quickSortAlgor(int[] array){
+        return sort(array, 0, array.length-1);
+    }
+    
+    public static int[] sort(int[] array, int start, int end){
+        if (start >= end) return array;
+        int middle = (start+end)/2;
+        int pivot = array[middle];
+       int i = start, j = end;
+        while (i <= j) {
+            while (array[i] < pivot) i++;
+            while (array[j] > pivot) j--;
+
+            if (i <= j) {
+                swap(array, i, j);
+                i++;
+                j--;
+            }
+        }
+       
+       if (start < j) {
+           sort(array, start, middle);
+       }
+        if (i < end) {
+            sort(array, middle, end);
+        }
+       return array;
+    }
+    
+    public static int[] swap(int[] array,int i, int j){
+        int temp = array[i];
+        array[i] = array[j];
+        array[j]=temp;
+        return array;
+    }
